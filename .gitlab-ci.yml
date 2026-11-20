@@ -1,0 +1,10 @@
+stages:
+  - test
+
+verify:
+  stage: test
+  image: python:3.12
+  script:
+    - pip install -r requirements-dev.txt
+    - PYTHONPATH=src python -m pytest tests/ -q
+    - python demo/run_demo.py
