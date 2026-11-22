@@ -8,3 +8,4 @@ demo/output/
 *.egg-info/
 .DS_Store/
 simagent.json
+DerivedData/
