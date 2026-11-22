@@ -79,6 +79,31 @@ The report lands in `reports/` as `check-<timestamp>.json` and
 `check-<timestamp>.html`. Open the HTML file to read the bottom line and
 the per-step table.
 
+## Sample app
+
+The repo includes a small sample app in `sample-app/`, called SimSample.
+It is a SwiftUI app with a Tasks tab (a checklist with progress, a
+detail screen per task, and an add-task field) and an About tab with a
+counter button. It is deliberately a little more than a Hello World, so
+the agent has more than one screen to describe.
+
+Build it once on the iMac. The `-derivedDataPath` flag puts the built
+app at a known location:
+
+```
+xcodebuild -project sample-app/SimSample.xcodeproj -scheme SimSample -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath sample-app/DerivedData build
+```
+
+Then run the loop against the built app:
+
+```
+python3 simagent_cli.py check --app sample-app/DerivedData/Build/Products/Debug-iphonesimulator/SimSample.app
+```
+
+The build step is skipped here because no project is passed to `check`.
+Pass `--project sample-app/SimSample.xcodeproj --scheme SimSample` as
+well if you want `check` to rebuild before running.
+
 ## Commands
 
 All commands run from the repo root as `python3 simagent_cli.py <command>`.
