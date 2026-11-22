@@ -66,13 +66,13 @@ cp simagent.json.example simagent.json
 List the simulators on the Mac:
 
 ```
-python3 simagent.py devices
+python3 simagent_cli.py devices
 ```
 
 Run the full loop against a built app:
 
 ```
-python3 simagent.py check --app build/MyApp.app --project MyApp.xcodeproj --scheme MyApp
+python3 simagent_cli.py check --app build/MyApp.app --project MyApp.xcodeproj --scheme MyApp
 ```
 
 The report lands in `reports/` as `check-<timestamp>.json` and
@@ -81,7 +81,7 @@ the per-step table.
 
 ## Commands
 
-All commands run from the repo root as `python3 simagent.py <command>`.
+All commands run from the repo root as `python3 simagent_cli.py <command>`.
 
 - `devices`: list simulator devices with name, UDID, state, and runtime.
 - `boot --device "iPhone 17"`: boot a simulator by name. Reports when the
@@ -173,7 +173,7 @@ screen point. Then the click lands at the Simulator window origin plus the
 device point.
 
 ```
-python3 simagent.py tap --x 585 --y 900
+python3 simagent_cli.py tap --x 585 --y 900
 ```
 
 `--origin-x` and `--origin-y` set the window origin by hand. Without them,
@@ -230,7 +230,7 @@ A first run against a small app, with a project configured in
 `simagent.json`:
 
 ```
-python3 simagent.py check --app build/MyApp.app
+python3 simagent_cli.py check --app build/MyApp.app
 ```
 
 When the loop passes, the report says so in the bottom line and shows the
@@ -247,7 +247,7 @@ When the description shows a problem, ask for a fix. This is a dry run
 unless you pass `--apply`:
 
 ```
-python3 simagent.py fix --file Sample.swift --problem "Continue button does nothing"
+python3 simagent_cli.py fix --file Sample.swift --problem "Continue button does nothing"
 ```
 
 The command prints `dry-run: diff validated, nothing written`. Read the
