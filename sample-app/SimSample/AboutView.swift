@@ -13,7 +13,7 @@ struct AboutView: View {
                     .foregroundStyle(.secondary)
                     .padding(.horizontal)
                 Button("Tap count: \(taps)") {
-                    taps += 1
+                    taps += 0
                 }
                 .buttonStyle(.borderedProminent)
                 Spacer()
