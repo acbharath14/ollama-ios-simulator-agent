@@ -7,7 +7,7 @@ DEFAULTS = {
     "ollama_host": "http://127.0.0.1:11434",
     "vision_model": "qwen2.5vl:7b",
     "coder_model": "qwen2.5-coder:7b",
-    "device_name": "iPhone 17",
+    "device_name": "iPhone 16 Pro",
     "tap_scale": 2,
     "scheme": None,
     "project": None,

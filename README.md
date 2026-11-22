@@ -91,7 +91,7 @@ Build it once on the iMac. The `-derivedDataPath` flag puts the built
 app at a known location:
 
 ```
-xcodebuild -project sample-app/SimSample.xcodeproj -scheme SimSample -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath sample-app/DerivedData build
+xcodebuild -project sample-app/SimSample.xcodeproj -scheme SimSample -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath sample-app/DerivedData build
 ```
 
 Then run the loop against the built app:
@@ -109,7 +109,7 @@ well if you want `check` to rebuild before running.
 All commands run from the repo root as `python3 simagent_cli.py <command>`.
 
 - `devices`: list simulator devices with name, UDID, state, and runtime.
-- `boot --device "iPhone 17"`: boot a simulator by name. Reports when the
+- `boot --device "iPhone 16 Pro"`: boot a simulator by name. Reports when the
   device is already booted instead of failing.
 - `build --project MyApp.xcodeproj --scheme MyApp`: build with xcodebuild
   for the iOS Simulator. `--workspace` works in place of `--project`.
@@ -142,7 +142,7 @@ file, and the file overrides the built-in defaults. Copy
 | ollama_host | http://127.0.0.1:11434 | Ollama server |
 | vision_model | qwen2.5vl:7b | Model that reads screenshots |
 | coder_model | qwen2.5-coder:7b | Model that proposes fixes |
-| device_name | iPhone 17 | Simulator to boot and target |
+| device_name | iPhone 16 Pro | Simulator to boot and target |
 | tap_scale | 2 | Screenshot pixels per device point |
 | scheme | null | xcodebuild scheme |
 | project | null | Path to the .xcodeproj |
