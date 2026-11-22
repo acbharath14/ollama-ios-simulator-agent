@@ -169,14 +169,19 @@ your code.
 
 ## Fix, in detail
 
-`fix` asks the coder model for a unified diff that changes one file. The
+`fix` asks the coder model for the full corrected file contents. The
 prompt is short: the file, one sentence describing the problem, and the file
-contents. The model answers with a diff only.
+contents. The model answers with the full file only, in a fenced code block.
+
+The tool then computes the unified diff itself, from the original file to
+the model's file. The diff is never hand-written by the model, so its
+context lines always match the file exactly.
 
 Before anything is written, the tool checks three things:
 
 1. The working tree is clean. A dirty tree is refused.
-2. The output contains real diff hunks.
+2. The model's file differs from the original, so the computed diff has
+   real hunks.
 3. The diff validates with `git apply --check`.
 
 With no `--apply`, the command stops there and reports that the diff

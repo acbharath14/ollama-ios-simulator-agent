@@ -26,7 +26,7 @@ DEVICES_JSON = json.dumps(
         "devices": {
             "com.apple.CoreSimulator.SimRuntime.iOS-26-0": [
                 {
-                    "name": "iPhone 17",
+                    "name": "iPhone 16 Pro",
                     "udid": "DEMO0000-0000-0000-0000-000000000000",
                     "state": "Shutdown",
                     "isAvailable": True,
@@ -41,14 +41,10 @@ CANNED_DESCRIPTION = (
     "and a Continue button at the bottom."
 )
 
-CANNED_DIFF = """--- a/Sample.swift
-+++ b/Sample.swift
-@@ -1,3 +1,3 @@
- import SwiftUI
-
--struct SampleView: View { var body: some View { Text("Hello") } }
-+struct SampleView: View { var body: some View { Text("Welcome to Sample") } }
-"""
+CANNED_FIXED_FILE = (
+    'import SwiftUI\n\n'
+    'struct SampleView: View { var body: some View { Text("Welcome to Sample") } }\n'
+)
 
 
 def make_png(width, height, rgb):
@@ -89,11 +85,13 @@ def demo_fix():
                GIT_COMMITTER_NAME="demo", GIT_COMMITTER_EMAIL="demo@example.com")
     subprocess.run(["git", "init", "-q", work], check=True, env=env)
     target = os.path.join(work, "Sample.swift")
+    original = 'import SwiftUI\n\nstruct SampleView: View { var body: some View { Text("Hello") } }\n'
     with open(target, "w", encoding="utf-8") as fh:
-        fh.write('import SwiftUI\n\nstruct SampleView: View { var body: some View { Text("Hello") } }\n')
+        fh.write(original)
     subprocess.run(["git", "-C", work, "add", "Sample.swift"], check=True, env=env)
     subprocess.run(["git", "-C", work, "commit", "-q", "-m", "initial"], check=True, env=env)
-    diff = fix_mod.extract_diff(CANNED_DIFF)
+    new_text = fix_mod.extract_file("```swift\n" + CANNED_FIXED_FILE + "```\n")
+    diff = fix_mod.compute_diff("Sample.swift", original, new_text)
     return fix_mod.apply_fix(work, diff, dry_run=True)
 
 

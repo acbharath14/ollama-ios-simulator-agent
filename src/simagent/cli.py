@@ -315,7 +315,8 @@ def cmd_fix(args, cfg):
         [{"role": "user", "content": prompt}],
         temperature=0.1,
     )
-    diff = fix_mod.extract_diff(answer)
+    new_text = fix_mod.extract_file(answer)
+    diff = fix_mod.compute_diff(args.file, file_text, new_text)
     result = fix_mod.apply_fix(repo_dir, diff, dry_run=not args.apply)
     print(result)
     return 0

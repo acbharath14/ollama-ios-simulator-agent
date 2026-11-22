@@ -5,6 +5,7 @@ git apply --check, nothing is committed, nothing is merged, and --apply
 is required to write anything.
 """
 
+import difflib
 import re
 import subprocess
 
@@ -13,12 +14,29 @@ class FixError(Exception):
     pass
 
 
-def extract_diff(text):
-    """Pull a unified diff out of model output, fenced or raw."""
-    match = re.search(r"```(?:diff)?\s*\n(.*?)```", text, re.DOTALL)
+def extract_file(text):
+    """Pull the full corrected file out of model output, fenced or raw."""
+    match = re.search(r"```\w*\s*\n(.*?)```", text, re.DOTALL)
     if match:
-        return match.group(1).strip() + "\n"
-    return text.strip() + "\n"
+        return match.group(1)
+    return text
+
+
+def compute_diff(file_path, original, new):
+    """Build a unified diff from the original to the new file contents.
+
+    The diff is computed by the tool, never hand-written by the model, so
+    its context lines always match the file exactly.
+    """
+    orig_lines = original.splitlines(keepends=True)
+    new_lines = new.splitlines(keepends=True)
+    diff_lines = difflib.unified_diff(
+        orig_lines,
+        new_lines,
+        fromfile="a/" + file_path,
+        tofile="b/" + file_path,
+    )
+    return "".join(diff_lines)
 
 
 def has_hunks(diff):

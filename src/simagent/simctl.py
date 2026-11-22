@@ -53,7 +53,7 @@ def xcodebuild_cmd(project=None, workspace=None, scheme=None, device_name=None):
     else:
         cmd += ["-project", project]
     cmd += ["-scheme", scheme]
-    cmd += ["-destination", "platform=iOS Simulator,name=%s" % (device_name or "iPhone 17")]
+    cmd += ["-destination", "platform=iOS Simulator,name=%s" % (device_name or "iPhone 16 Pro")]
     cmd += ["build"]
     return cmd
 

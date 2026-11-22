@@ -53,7 +53,8 @@ def test_fix_prompt_contents():
     assert "App.swift" in prompt
     assert "button does nothing" in prompt
     assert "let x = 1" in prompt
-    assert "git apply" in prompt
+    assert "full corrected" in prompt
+    assert "unified diff" not in prompt
 
 
 def test_chat_success(monkeypatch):

@@ -46,15 +46,15 @@ def describe_payload(model, image_path, question):
 
 
 def fix_prompt(file_path, file_text, problem):
-    """Short prompt for one single-file fix. The model answers with a diff."""
+    """Short prompt for one single-file fix. The model answers with the full corrected file."""
     return (
-        "You are fixing one problem in one file. Reply with a unified diff "
-        "only. No explanation and no prose outside the diff.\n"
+        "You are fixing one problem in one file. Reply with the full corrected "
+        "file contents only, in a fenced code block. No explanation and no prose "
+        "outside the code block. Change only what the problem requires; keep "
+        "every other line exactly as it is.\n"
         "File: %s\n"
         "Problem: %s\n"
         "Current file contents:\n%s\n"
-        "The diff must apply cleanly with git apply and must change only "
-        "this file."
         % (file_path, problem, file_text)
     )
 

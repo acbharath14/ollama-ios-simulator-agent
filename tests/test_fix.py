@@ -11,7 +11,9 @@ GOOD_DIFF = """--- a/hello.txt
 +hello world
 """
 
-FENCED_DIFF = "Here is the fix:\n```diff\n" + GOOD_DIFF + "```\n"
+NEW_FILE = "hello world\n"
+
+FENCED_FILE = "Here is the fixed file:\n```text\n" + NEW_FILE + "```\n"
 
 
 def _init_repo(path):
@@ -31,12 +33,29 @@ def _init_repo(path):
     return git
 
 
-def test_extract_diff_fenced():
-    assert fix.extract_diff(FENCED_DIFF) == GOOD_DIFF
+def test_extract_file_fenced():
+    assert fix.extract_file(FENCED_FILE) == NEW_FILE
 
 
-def test_extract_diff_raw():
-    assert fix.extract_diff(GOOD_DIFF) == GOOD_DIFF
+def test_extract_file_raw():
+    assert fix.extract_file(NEW_FILE) == NEW_FILE
+
+
+def test_compute_diff_matches_expected():
+    diff = fix.compute_diff("hello.txt", "hello\n", NEW_FILE)
+    assert diff == GOOD_DIFF
+
+
+def test_compute_diff_no_change_has_no_hunks():
+    diff = fix.compute_diff("hello.txt", "hello\n", "hello\n")
+    assert diff == ""
+    assert fix.has_hunks(diff) is False
+
+
+def test_compute_diff_applies_cleanly(tmp_path):
+    _init_repo(tmp_path)
+    diff = fix.compute_diff("hello.txt", "hello\n", NEW_FILE)
+    assert fix.validate_diff(str(tmp_path), diff) is True
 
 
 def test_has_hunks():

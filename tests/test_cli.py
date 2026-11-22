@@ -9,7 +9,7 @@ DEVICES_JSON = json.dumps(
         "devices": {
             "com.apple.CoreSimulator.SimRuntime.iOS-26-0": [
                 {
-                    "name": "iPhone 17",
+                    "name": "iPhone 16 Pro",
                     "udid": "AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE",
                     "state": "Shutdown",
                     "isAvailable": True,

@@ -10,7 +10,7 @@ def test_resolve_defaults():
     assert cfg["ollama_host"] == "http://127.0.0.1:11434"
     assert cfg["vision_model"] == "qwen2.5vl:7b"
     assert cfg["coder_model"] == "qwen2.5-coder:7b"
-    assert cfg["device_name"] == "iPhone 17"
+    assert cfg["device_name"] == "iPhone 16 Pro"
     assert cfg["tap_scale"] == 2
 
 

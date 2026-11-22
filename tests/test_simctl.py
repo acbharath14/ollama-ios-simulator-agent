@@ -10,7 +10,7 @@ DEVICES_JSON = json.dumps(
         "devices": {
             "com.apple.CoreSimulator.SimRuntime.iOS-26-0": [
                 {
-                    "name": "iPhone 17",
+                    "name": "iPhone 16 Pro",
                     "udid": "AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE",
                     "state": "Shutdown",
                     "isAvailable": True,
@@ -86,7 +86,7 @@ def test_xcodebuild_cmd_project():
 def test_xcodebuild_cmd_workspace_and_default_device():
     cmd = simctl.xcodebuild_cmd(workspace="MyApp.xcworkspace", scheme="MyApp")
     assert "-workspace" in cmd and "MyApp.xcworkspace" in cmd
-    assert "platform=iOS Simulator,name=iPhone 17" in cmd
+    assert "platform=iOS Simulator,name=iPhone 16 Pro" in cmd
 
 
 def test_xcodebuild_cmd_validation():
@@ -101,7 +101,7 @@ def test_xcodebuild_cmd_validation():
 def test_parse_devices():
     devices = simctl.parse_devices(DEVICES_JSON)
     assert len(devices) == 2
-    assert devices[0]["name"] == "iPhone 17"
+    assert devices[0]["name"] == "iPhone 16 Pro"
     assert devices[0]["state"] == "Shutdown"
     assert devices[0]["available"] is True
     assert devices[1]["state"] == "Booted"
